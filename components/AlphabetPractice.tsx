@@ -72,32 +72,34 @@ export default function AlphabetPractice() {
         };
 
         recognition.onresult = (event: any) => {
-            let transcript = "";
+            let currentTranscript = "";
             for (let i = event.resultIndex; i < event.results.length; ++i) {
-                transcript += event.results[i][0].transcript;
+                const result = event.results[i];
+                currentTranscript = result[0].transcript.trim().toLowerCase();
+                setRecognizedText(currentTranscript);
 
-                if (event.results[i].isFinal) {
-                    const finalTranscript = event.results[i][0].transcript.trim();
-                    setRecognizedText(finalTranscript);
+                if (currentItem) {
+                    const allTranscripts = Array.from(result).map((res: any) => res.transcript.trim().toLowerCase());
 
-                    if (currentItem) {
-                        const results = event.results[i];
-                        const allTranscripts = Array.from(results).map((res: any) => res.transcript.trim().toLowerCase());
+                    const isMatch = allTranscripts.some(t =>
+                        t === currentItem.char ||
+                        t === currentItem.romaji ||
+                        currentItem.alts.map(a => a.toLowerCase()).includes(t)
+                    );
 
-                        const isCorrect =
-                            allTranscripts.some(t =>
-                                t === currentItem.char ||
-                                t === currentItem.romaji ||
-                                currentItem.alts.map(a => a.toLowerCase()).includes(t)
-                            );
+                    if (isMatch) {
+                        setFeedback("correct");
+                        setShowAnswer(true);
+                        stopListening();
+                        return; // Exit early on correct match
+                    }
 
-                        setFeedback(isCorrect ? "correct" : "incorrect");
+                    if (result.isFinal) {
+                        setRecognizedText(currentTranscript);
+                        setFeedback("incorrect");
                         setShowAnswer(true);
                         stopListening();
                     }
-                } else {
-                    // Interim result
-                    setRecognizedText(transcript.trim());
                 }
             }
         };
@@ -178,7 +180,7 @@ export default function AlphabetPractice() {
         );
 
     return (
-        <div className="max-w-xl mx-auto px-4 animate-fade-in">
+        <div className="max-w-xl mx-auto animate-fade-in">
             {/* Nav & Mode Controls */}
             <div className="flex flex-col gap-4 mb-10">
                 <div className="flex p-1 bg-slate-50 rounded-xl border border-slate-100 shadow-sm">
