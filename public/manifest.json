@@ -1,0 +1,21 @@
+{
+  "name": "JLPT N5 Vocabulary",
+  "short_name": "JLPT N5",
+  "description": "Master JLPT N5 vocabulary with interactive flashcards and alphabet practice.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
