@@ -3,7 +3,7 @@
 import { N5_LESSONS_VOCABULARY } from "@/data/vocabulary";
 import LessonList from "@/components/LessonList";
 import Link from "next/link";
-import { BookOpen } from "lucide-react";
+import { BookOpen, Trophy } from "lucide-react";
 
 export default function Home() {
   return (
@@ -24,13 +24,20 @@ export default function Home() {
             Minna No Nihongo vocabulary with interactive flashcards and Bengali audio.
           </p>
 
-          <div className="flex justify-center">
+          <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/alphabet"
               className="px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-all active:scale-95 flex items-center gap-2 text-sm"
             >
               <BookOpen className="w-4 h-4" />
               Practice Alphabet
+            </Link>
+            <Link
+              href="/quiz"
+              className="px-6 py-3 bg-white text-blue-600 border border-blue-200 font-bold rounded-lg hover:bg-blue-50 transition-all active:scale-95 flex items-center gap-2 text-sm shadow-sm shadow-blue-50"
+            >
+              <Trophy className="w-4 h-4" />
+              Start Quiz
             </Link>
           </div>
         </div>

@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Book } from "lucide-react";
+import { Home, Book, Trophy } from "lucide-react";
 
 const navItems = [
     { name: "Home", href: "/", icon: Home },
     { name: "Alphabet", href: "/alphabet", icon: Book },
+    { name: "Quiz", href: "/quiz", icon: Trophy },
 ];
 
 export default function BottomNav() {
