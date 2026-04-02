@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { hiragana, katakana } from "@/data/alphabat";
 import AudioButton from "./AudioButton";
-import { RefreshCw, Eye, EyeOff, BookOpen, PenTool, ChevronRight, ChevronLeft } from "lucide-react";
+import { RefreshCw, Eye, BookOpen, PenTool, ChevronRight } from "lucide-react";
 
 type AlphabetItem = {
     char: string;
@@ -15,19 +15,14 @@ type AlphabetItem = {
 export default function AlphabetPractice() {
     const [kanaType, setKanaType] = useState<"hiragana" | "katakana">("hiragana");
     const [practiceMode, setPracticeMode] = useState<"normal" | "reverse">("normal");
-    const [currentItem, setCurrentItem] = useState<AlphabetItem>(() => {
-        const pool = hiragana;
-        return pool[Math.floor(Math.random() * pool.length)];
-    });
+    const [currentItem, setCurrentItem] = useState<AlphabetItem | null>(null);
     const [showAnswer, setShowAnswer] = useState(false);
-    const [history, setHistory] = useState<AlphabetItem[]>([]);
 
     const getRandomItem = useCallback(() => {
         const pool = kanaType === "hiragana" ? hiragana : katakana;
         const randomIndex = Math.floor(Math.random() * pool.length);
         const newItem = pool[randomIndex];
 
-        // Avoid immediate duplicates
         if (currentItem && newItem.char === currentItem.char && pool.length > 1) {
             return getRandomItem();
         }
@@ -38,124 +33,109 @@ export default function AlphabetPractice() {
 
     useEffect(() => {
         getRandomItem();
-    }, [kanaType]); // Also refresh on kana type change
+    }, [kanaType]);
 
     const handleNext = () => {
-        if (currentItem) {
-            setHistory(prev => [currentItem, ...prev].slice(0, 10));
-        }
         getRandomItem();
     };
 
-    if (!currentItem) return null;
+    if (!currentItem) return (
+        <div className="flex items-center justify-center min-h-[400px]">
+            <RefreshCw className="animate-spin text-blue-600 w-5 h-5" />
+        </div>
+    );
 
     return (
-        <div className="max-w-2xl mx-auto">
-            {/* Controls */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-between">
-                <div className="flex bg-white p-1 rounded-xl shadow-sm border border-gray-200">
+        <div className="max-w-xl mx-auto px-4">
+            {/* Compact Controls */}
+            <div className="flex flex-col gap-3 mb-8">
+                <div className="flex p-0.5 bg-slate-100 rounded-lg border border-slate-200">
                     <button
                         onClick={() => setKanaType("hiragana")}
-                        className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${kanaType === "hiragana" ? "bg-blue-600 text-white shadow-md" : "text-gray-500 hover:text-gray-700"
+                        className={`flex-1 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${kanaType === "hiragana" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500"
                             }`}
                     >
                         Hiragana
                     </button>
                     <button
                         onClick={() => setKanaType("katakana")}
-                        className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${kanaType === "katakana" ? "bg-blue-600 text-white shadow-md" : "text-gray-500 hover:text-gray-700"
+                        className={`flex-1 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${kanaType === "katakana" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500"
                             }`}
                     >
                         Katakana
                     </button>
                 </div>
 
-                <div className="flex bg-white p-1 rounded-xl shadow-sm border border-gray-200">
+                <div className="flex p-0.5 bg-slate-100 rounded-lg border border-slate-200">
                     <button
                         onClick={() => setPracticeMode("normal")}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all ${practiceMode === "normal" ? "bg-indigo-600 text-white shadow-md" : "text-gray-500 hover:text-gray-700"
+                        className={`flex-1 flex items-center justify-center gap-1.5 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${practiceMode === "normal" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500"
                             }`}
-                        title="See character, guess sound"
                     >
-                        <BookOpen className="w-4 h-4" />
+                        <BookOpen className="w-3 h-3" />
                         Recognition
                     </button>
                     <button
                         onClick={() => setPracticeMode("reverse")}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all ${practiceMode === "reverse" ? "bg-indigo-600 text-white shadow-md" : "text-gray-500 hover:text-gray-700"
+                        className={`flex-1 flex items-center justify-center gap-1.5 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${practiceMode === "reverse" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500"
                             }`}
-                        title="See/Hear sound, write character on paper"
                     >
-                        <PenTool className="w-4 h-4" />
-                        Writing (Paper)
+                        <PenTool className="w-3 h-3" />
+                        Writing
                     </button>
                 </div>
             </div>
 
-            {/* Practice Card */}
-            <div className="bg-white rounded-3xl shadow-xl border-2 border-blue-50 p-8 md:p-12 text-center relative overflow-hidden">
-                <div className="absolute top-4 right-4">
-                    <AudioButton text={currentItem.bn} className="scale-125" />
+            {/* Compact Practice Card */}
+            <div className="bg-white rounded-2xl border border-gray-100 p-8 md:p-12 text-center animate-fade-in relative shadow-sm">
+                <div className="absolute top-6 right-6 scale-90">
+                    <AudioButton text={currentItem.bn} />
                 </div>
 
-                <div className="mb-8">
+                <div className="min-h-[120px] flex items-center justify-center mb-6">
                     {practiceMode === "normal" ? (
-                        <div className="text-9xl font-bold text-gray-800 animate-fade-in">
+                        <div className="text-8xl font-bold text-slate-800 leading-none select-none">
                             {currentItem.char}
                         </div>
                     ) : (
-                        <div className="flex flex-col items-center gap-4 animate-fade-in">
-                            <span className="text-6xl font-bold text-blue-600 uppercase tracking-widest">
+                        <div className="flex flex-col items-center gap-2">
+                            <span className="text-5xl font-bold text-blue-600 uppercase tracking-tighter">
                                 {currentItem.romaji}
                             </span>
-                            <span className="text-2xl text-gray-400 font-medium">({currentItem.bn})</span>
-                            <p className="text-sm text-gray-400 mt-4 italic">Write the character on your paper...</p>
+                            <span className="text-sm text-slate-400 font-bold uppercase tracking-widest opacity-60">({currentItem.bn})</span>
                         </div>
                     )}
                 </div>
 
-                <div className="min-h-[120px] flex flex-col items-center justify-center">
+                <div className="min-h-[80px] flex flex-col items-center justify-center">
                     {showAnswer ? (
-                        <div className="animate-fade-in-up">
-                            <div className="flex items-center justify-center gap-4 mb-2">
-                                <span className="text-4xl font-bold text-green-600">
-                                    {practiceMode === "normal" ? currentItem.romaji.toUpperCase() : currentItem.char}
-                                </span>
-                            </div>
-                            <p className="text-gray-500 font-medium">
-                                {practiceMode === "normal" ? `Bengali: ${currentItem.bn}` : `Sound: ${currentItem.romaji} (${currentItem.bn})`}
+                        <div className="animate-fade-in">
+                            <span className="text-3xl font-bold text-blue-600 block mb-1">
+                                {practiceMode === "normal" ? currentItem.romaji.toUpperCase() : currentItem.char}
+                            </span>
+                            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">
+                                Sound: {currentItem.romaji} • Bengali: {currentItem.bn}
                             </p>
                         </div>
                     ) : (
                         <button
                             onClick={() => setShowAnswer(true)}
-                            className="flex items-center gap-2 px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold rounded-2xl transition-all"
+                            className="px-6 py-2 bg-slate-50 text-slate-500 font-bold text-[9px] uppercase tracking-widest rounded-full transition-all active:scale-95 border border-slate-200"
                         >
-                            <Eye className="w-5 h-5" />
-                            Show Answer
+                            Reveal Answer
                         </button>
                     )}
                 </div>
 
-                <div className="mt-12 flex gap-4">
+                <div className="mt-8">
                     <button
                         onClick={handleNext}
-                        className="flex-1 flex items-center justify-center gap-3 py-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-lg shadow-blue-200 transition-all active:scale-95 touch-manipulation"
+                        className="w-full flex items-center justify-center gap-2 py-4 bg-blue-600 text-white font-bold text-[10px] uppercase tracking-widest rounded-xl hover:bg-blue-700 transition-all active:scale-95 group"
                     >
-                        <RefreshCw className="w-5 h-5" />
-                        Next Character
-                        <ChevronRight className="w-5 h-5" />
+                        <span>Next Character</span>
+                        <ChevronRight className="w-3 h-3" />
                     </button>
                 </div>
-            </div>
-
-            {/* History / Info */}
-            <div className="mt-8 text-center">
-                <p className="text-gray-400 text-sm">
-                    {practiceMode === "reverse"
-                        ? "Tip: Listen to the audio and try to write the character from memory."
-                        : "Tip: Try to say the sound out loud before revealing the answer."}
-                </p>
             </div>
         </div>
     );

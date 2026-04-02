@@ -22,53 +22,53 @@ export default function LessonContent({ lesson }: LessonContentProps) {
     };
 
     return (
-        <>
-            <div className="flex bg-white p-1 rounded-xl shadow-sm border border-gray-200 self-start md:self-center mb-8 w-fit">
+        <div className="flex flex-col gap-6">
+            {/* Compact View Toggle */}
+            <div className="flex p-0.5 bg-slate-100 rounded-lg border border-slate-200 w-fit self-center">
                 <button
                     onClick={() => setViewMode("flashcard")}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${viewMode === "flashcard" ? "bg-blue-600 text-white shadow-md" : "text-gray-500 hover:text-gray-700"
+                    className={`flex items-center gap-1.5 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${viewMode === "flashcard" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500"
                         }`}
                 >
-                    <LayoutGrid className="w-4 h-4" />
-                    Flashcard
+                    <LayoutGrid className="w-3 h-3" />
+                    Cards
                 </button>
                 <button
                     onClick={() => setViewMode("list")}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${viewMode === "list" ? "bg-blue-600 text-white shadow-md" : "text-gray-500 hover:text-gray-700"
+                    className={`flex items-center gap-1.5 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${viewMode === "list" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500"
                         }`}
                 >
-                    <List className="w-4 h-4" />
-                    List View
+                    <List className="w-3 h-3" />
+                    List
                 </button>
             </div>
 
-            <div className="mt-8">
+            <div className="relative">
                 {viewMode === "flashcard" ? (
-                    <div className="flex flex-col items-center gap-8">
-                        <div className="w-full max-w-md animate-fade-in-up">
+                    <div className="flex flex-col items-center gap-6">
+                        <div className="w-full max-w-sm">
                             <FlashCard word={lesson.words[currentWordIndex]} />
                         </div>
 
-                        <div className="flex items-center gap-6">
+                        {/* Compact Controls */}
+                        <div className="flex items-center gap-4">
                             <button
                                 onClick={prevWord}
-                                className="p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:border-blue-300 hover:shadow-md transition-all text-blue-600"
+                                className="p-3 bg-white rounded-lg shadow-sm border border-gray-100 hover:border-blue-200 transition-all text-blue-600 active:scale-90"
                             >
-                                <ChevronLeft className="w-6 h-6" />
+                                <ChevronLeft className="w-5 h-5" />
                             </button>
-                            <div className="px-6 py-2 bg-blue-100/50 rounded-full text-blue-800 font-bold">
+
+                            <div className="px-4 py-1 bg-blue-50 text-blue-600 rounded-full font-bold text-[10px] tracking-widest border border-blue-100">
                                 {currentWordIndex + 1} / {lesson.words.length}
                             </div>
+
                             <button
                                 onClick={nextWord}
-                                className="p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:border-blue-300 hover:shadow-md transition-all text-blue-600"
+                                className="p-3 bg-white rounded-lg shadow-sm border border-gray-100 hover:border-blue-200 transition-all text-blue-600 active:scale-90"
                             >
-                                <ChevronRight className="w-6 h-6" />
+                                <ChevronRight className="w-5 h-5" />
                             </button>
-                        </div>
-
-                        <div className="text-gray-400 text-sm text-center">
-                            Use arrows to navigate words. Click card to see meaning and listen.
                         </div>
                     </div>
                 ) : (
@@ -77,6 +77,6 @@ export default function LessonContent({ lesson }: LessonContentProps) {
                     </div>
                 )}
             </div>
-        </>
+        </div>
     );
 }

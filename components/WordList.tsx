@@ -16,34 +16,64 @@ interface WordListProps {
 
 export default function WordList({ words }: WordListProps) {
     return (
-        <div className="overflow-x-auto bg-white rounded-xl shadow-sm border border-gray-100">
-            <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                    <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Word</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reading</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Meaning</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pronunciation</th>
-                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Audio</th>
-                    </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                    {words.map((word, idx) => (
-                        <tr key={idx} className="hover:bg-blue-50 transition-colors">
-                            <td className="px-6 py-4 whitespace-nowrap text-lg font-bold text-gray-900">{word.word}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                <span className="block">{word.reading}</span>
-                                <span className="text-xs text-gray-400 font-mono">{word.romaji}</span>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-700">{word.meaning}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{word.pronunciation}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-right">
-                                <AudioButton text={word.pronunciation} />
-                            </td>
+        <div className="space-y-2">
+            {/* Compact Mobile View */}
+            <div className="md:hidden space-y-2">
+                {words.map((word, idx) => (
+                    <div key={idx} className="bg-white p-3 rounded-lg border border-gray-100 flex items-center justify-between gap-3 shadow-sm">
+                        <div className="flex-1">
+                            <div className="flex items-baseline gap-2 mb-0.5">
+                                <span className="text-lg font-bold text-slate-900">{word.word}</span>
+                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{word.romaji}</span>
+                            </div>
+                            <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                                <span className="text-xs font-bold text-blue-600">
+                                    {word.meaning}
+                                </span>
+                                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest px-1.5 py-0.5 bg-slate-50 rounded-md">
+                                    {word.pronunciation}
+                                </span>
+                            </div>
+                        </div>
+                        <div className="shrink-0 scale-90">
+                            <AudioButton text={word.pronunciation} />
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Compact Desktop View */}
+            <div className="hidden md:block overflow-hidden bg-white rounded-xl border border-gray-100 shadow-sm">
+                <table className="min-w-full divide-y divide-gray-100">
+                    <thead className="bg-slate-50 text-[9px] font-bold text-slate-500 uppercase tracking-widest">
+                        <tr>
+                            <th className="px-5 py-3 text-left">Word</th>
+                            <th className="px-5 py-3 text-left">Pronunciation</th>
+                            <th className="px-5 py-3 text-left">Meaning</th>
+                            <th className="px-5 py-3 text-right">Audio</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-50">
+                        {words.map((word, idx) => (
+                            <tr key={idx} className="hover:bg-blue-50/50 transition-colors group">
+                                <td className="px-5 py-3 whitespace-nowrap">
+                                    <span className="text-lg font-bold text-slate-900">{word.word}</span>
+                                </td>
+                                <td className="px-5 py-3 whitespace-nowrap">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-xs font-bold text-slate-700 uppercase tracking-widest">{word.romaji}</span>
+                                        <span className="text-[10px] font-medium text-slate-400 italic">({word.pronunciation})</span>
+                                    </div>
+                                </td>
+                                <td className="px-5 py-3 whitespace-nowrap text-sm font-bold text-blue-600">{word.meaning}</td>
+                                <td className="px-5 py-3 whitespace-nowrap text-right scale-90">
+                                    <AudioButton text={word.pronunciation} />
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

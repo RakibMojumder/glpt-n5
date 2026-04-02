@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 
 interface Lesson {
     id: number;
@@ -13,28 +14,27 @@ interface LessonListProps {
 
 export default function LessonList({ lessons }: LessonListProps) {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
             {lessons.map((lesson) => (
                 <Link
                     key={lesson.id}
                     href={`/lesson/${lesson.id}`}
-                    className="group p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all duration-300 transform hover:-translate-y-1"
+                    className="group p-4 bg-white rounded-xl border border-gray-100 hover:border-blue-200 hover:shadow-sm transition-all active:scale-[0.98] flex items-center justify-between"
                 >
-                    <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+                    <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-2xl group-hover:scale-105 transition-transform">
                             {lesson.icon}
                         </div>
                         <div>
-                            <h3 className="text-lg font-bold text-gray-900 leading-tight mb-1">{lesson.titleBn}</h3>
-                            <p className="text-sm text-gray-500">{lesson.titleEn}</p>
+                            <h3 className="text-base font-bold text-slate-900 leading-tight mb-0.5 group-hover:text-blue-600 transition-colors">
+                                {lesson.titleBn}
+                            </h3>
+                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                                {lesson.titleEn}
+                            </p>
                         </div>
                     </div>
-                    <div className="mt-4 flex items-center justify-between text-blue-600 text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span>Explore Vocabulary</span>
-                        <svg className="w-5 h-5 transform translate-x-0 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="9 5l7 7-7 7" />
-                        </svg>
-                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-blue-600 transform group-hover:translate-x-0.5 transition-all" />
                 </Link>
             ))}
         </div>
