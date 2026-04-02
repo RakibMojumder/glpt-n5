@@ -13,7 +13,7 @@ export default function BottomNav() {
     const pathname = usePathname();
 
     return (
-        <nav className="sm:hidden fixed bottom-3 left-6 right-6 bg-white border border-gray-100 shadow-lg px-8 py-3 flex justify-around items-center z-50 rounded-xl">
+        <nav className="sm:hidden fixed bottom-3 left-6 right-6 bg-white border border-gray-200 px-8 py-3 flex justify-around items-center z-50 rounded-xl">
             {navItems.map((item) => {
                 const isActive = pathname === item.href;
                 const Icon = item.icon;

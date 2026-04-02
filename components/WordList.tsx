@@ -20,7 +20,7 @@ export default function WordList({ words }: WordListProps) {
             {/* Compact Mobile View */}
             <div className="md:hidden space-y-2">
                 {words.map((word, idx) => (
-                    <div key={idx} className="bg-white p-3 rounded-lg border border-gray-100 flex items-center justify-between gap-3 shadow-sm">
+                    <div key={idx} className="bg-white p-3 rounded-lg border border-gray-100 flex items-center justify-between gap-3">
                         <div className="flex-1">
                             <div className="flex items-baseline gap-2 mb-0.5">
                                 <span className="text-lg font-bold text-slate-900">{word.word}</span>
@@ -43,7 +43,7 @@ export default function WordList({ words }: WordListProps) {
             </div>
 
             {/* Compact Desktop View */}
-            <div className="hidden md:block overflow-hidden bg-white rounded-xl border border-gray-100 shadow-sm">
+            <div className="hidden md:block overflow-hidden bg-white rounded-xl border border-gray-100">
                 <table className="min-w-full divide-y divide-gray-100">
                     <thead className="bg-slate-50 text-[9px] font-bold text-slate-500 uppercase tracking-widest">
                         <tr>

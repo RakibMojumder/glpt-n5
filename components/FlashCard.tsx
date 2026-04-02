@@ -30,14 +30,14 @@ export default function FlashCard({ word }: FlashCardProps) {
         >
             <div className={`relative w-full h-full text-center transition-all duration-500 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
                 {/* Front Side */}
-                <div className="absolute w-full h-full backface-hidden bg-white border border-gray-100 rounded-xl shadow-sm flex flex-col items-center justify-center p-4 hover:border-blue-200 transition-colors">
+                <div className="absolute w-full h-full backface-hidden bg-white border border-gray-100 rounded-xl flex flex-col items-center justify-center p-4 hover:border-blue-200 transition-colors">
                     <span className="text-5xl font-bold text-slate-800 mb-2">{word.word}</span>
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{word.romaji}</span>
                     <p className="mt-6 text-[9px] font-bold text-blue-400 uppercase tracking-widest animate-pulse">Tap to flip</p>
                 </div>
 
                 {/* Back Side */}
-                <div className="absolute w-full h-full backface-hidden bg-blue-50 border border-blue-100 rounded-xl shadow-sm flex flex-col items-center justify-center p-4 rotate-y-180">
+                <div className="absolute w-full h-full backface-hidden bg-blue-50 border border-blue-100 rounded-xl flex flex-col items-center justify-center p-4 rotate-y-180">
                     <span className="text-3xl font-bold text-blue-700 mb-3">{word.meaning}</span>
                     <div className="flex items-center gap-3 mb-3">
                         <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{word.romaji}</span>

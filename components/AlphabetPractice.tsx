@@ -52,14 +52,14 @@ export default function AlphabetPractice() {
                 <div className="flex p-0.5 bg-slate-100 rounded-lg border border-slate-200">
                     <button
                         onClick={() => setKanaType("hiragana")}
-                        className={`flex-1 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${kanaType === "hiragana" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500"
+                        className={`flex-1 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${kanaType === "hiragana" ? "bg-white text-blue-600 border border-slate-200" : "text-slate-500"
                             }`}
                     >
                         Hiragana
                     </button>
                     <button
                         onClick={() => setKanaType("katakana")}
-                        className={`flex-1 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${kanaType === "katakana" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500"
+                        className={`flex-1 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${kanaType === "katakana" ? "bg-white text-blue-600 border border-slate-200" : "text-slate-500"
                             }`}
                     >
                         Katakana
@@ -69,7 +69,7 @@ export default function AlphabetPractice() {
                 <div className="flex p-0.5 bg-slate-100 rounded-lg border border-slate-200">
                     <button
                         onClick={() => setPracticeMode("normal")}
-                        className={`flex-1 flex items-center justify-center gap-1.5 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${practiceMode === "normal" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500"
+                        className={`flex-1 flex items-center justify-center gap-1.5 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${practiceMode === "normal" ? "bg-white text-blue-600 border border-slate-200" : "text-slate-500"
                             }`}
                     >
                         <BookOpen className="w-3 h-3" />
@@ -77,7 +77,7 @@ export default function AlphabetPractice() {
                     </button>
                     <button
                         onClick={() => setPracticeMode("reverse")}
-                        className={`flex-1 flex items-center justify-center gap-1.5 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${practiceMode === "reverse" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500"
+                        className={`flex-1 flex items-center justify-center gap-1.5 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${practiceMode === "reverse" ? "bg-white text-blue-600 border border-slate-200" : "text-slate-500"
                             }`}
                     >
                         <PenTool className="w-3 h-3" />
@@ -87,7 +87,7 @@ export default function AlphabetPractice() {
             </div>
 
             {/* Compact Practice Card */}
-            <div className="bg-white rounded-2xl border border-gray-100 p-8 md:p-12 text-center animate-fade-in relative shadow-sm">
+            <div className="bg-white rounded-2xl border border-gray-100 p-8 md:p-12 text-center animate-fade-in relative">
                 <div className="absolute top-6 right-6 scale-90">
                     <AudioButton text={currentItem.bn} />
                 </div>

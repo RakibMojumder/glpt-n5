@@ -19,7 +19,7 @@ export default function LessonList({ lessons }: LessonListProps) {
                 <Link
                     key={lesson.id}
                     href={`/lesson/${lesson.id}`}
-                    className="group p-4 bg-white rounded-xl border border-gray-100 hover:border-blue-200 hover:shadow-sm transition-all active:scale-[0.98] flex items-center justify-between"
+                    className="group p-4 bg-white rounded-xl border border-gray-100 hover:border-blue-200 transition-all active:scale-[0.98] flex items-center justify-between"
                 >
                     <div className="flex items-center gap-3">
                         <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-2xl group-hover:scale-105 transition-transform">

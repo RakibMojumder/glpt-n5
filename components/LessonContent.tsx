@@ -27,7 +27,7 @@ export default function LessonContent({ lesson }: LessonContentProps) {
             <div className="flex p-0.5 bg-slate-100 rounded-lg border border-slate-200 w-fit self-center">
                 <button
                     onClick={() => setViewMode("flashcard")}
-                    className={`flex items-center gap-1.5 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${viewMode === "flashcard" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500"
+                    className={`flex items-center gap-1.5 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${viewMode === "flashcard" ? "bg-white text-blue-600 border border-slate-200" : "text-slate-500"
                         }`}
                 >
                     <LayoutGrid className="w-3 h-3" />
@@ -35,7 +35,7 @@ export default function LessonContent({ lesson }: LessonContentProps) {
                 </button>
                 <button
                     onClick={() => setViewMode("list")}
-                    className={`flex items-center gap-1.5 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${viewMode === "list" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500"
+                    className={`flex items-center gap-1.5 px-4 py-1.5 rounded-md text-[9px] font-bold uppercase tracking-widest transition-all ${viewMode === "list" ? "bg-white text-blue-600 border border-slate-200" : "text-slate-500"
                         }`}
                 >
                     <List className="w-3 h-3" />
@@ -54,7 +54,7 @@ export default function LessonContent({ lesson }: LessonContentProps) {
                         <div className="flex items-center gap-4">
                             <button
                                 onClick={prevWord}
-                                className="p-3 bg-white rounded-lg shadow-sm border border-gray-100 hover:border-blue-200 transition-all text-blue-600 active:scale-90"
+                                className="p-3 bg-white rounded-lg border border-gray-100 hover:border-blue-200 transition-all text-blue-600 active:scale-90"
                             >
                                 <ChevronLeft className="w-5 h-5" />
                             </button>
@@ -65,7 +65,7 @@ export default function LessonContent({ lesson }: LessonContentProps) {
 
                             <button
                                 onClick={nextWord}
-                                className="p-3 bg-white rounded-lg shadow-sm border border-gray-100 hover:border-blue-200 transition-all text-blue-600 active:scale-90"
+                                className="p-3 bg-white rounded-lg border border-gray-100 hover:border-blue-200 transition-all text-blue-600 active:scale-90"
                             >
                                 <ChevronRight className="w-5 h-5" />
                             </button>
