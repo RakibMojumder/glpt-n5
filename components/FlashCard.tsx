@@ -2,14 +2,7 @@
 
 import { useState } from "react";
 import AudioButton from "./AudioButton";
-
-interface Word {
-    word: string;
-    reading: string;
-    romaji: string;
-    meaning: string;
-    pronunciation: string;
-}
+import { Word } from "@/types/lesson";
 
 interface FlashCardProps {
     word: Word;

@@ -13,14 +13,7 @@ import {
     Settings2
 } from "lucide-react";
 import AudioButton from "./AudioButton";
-
-type Word = {
-    word: string;
-    reading: string;
-    romaji: string;
-    meaning: string;
-    pronunciation: string;
-};
+import { Word, Lesson } from "@/types/lesson";
 
 type QuizState = "config" | "playing" | "results";
 
@@ -44,10 +37,10 @@ export default function VocabularyQuiz() {
         let pool: Word[] = [];
         if (selectedLessons.length === 0) {
             // All lessons
-            N5_LESSONS_VOCABULARY.forEach(l => pool.push(...l.words));
+            N5_LESSONS_VOCABULARY.forEach((l: Lesson) => pool.push(...l.words));
         } else {
-            N5_LESSONS_VOCABULARY.filter(l => selectedLessons.includes(l.id))
-                .forEach(l => pool.push(...l.words));
+            N5_LESSONS_VOCABULARY.filter((l: Lesson) => selectedLessons.includes(l.id))
+                .forEach((l: Lesson) => pool.push(...l.words));
         }
 
         // Shuffle and pick
@@ -63,9 +56,9 @@ export default function VocabularyQuiz() {
 
     const prepareQuestion = (words: Word[], index: number) => {
         const currentWord = words[index];
-        const otherMeanings = N5_LESSONS_VOCABULARY.flatMap(l => l.words)
-            .filter(w => w.meaning !== currentWord.meaning)
-            .map(w => w.meaning);
+        const otherMeanings = N5_LESSONS_VOCABULARY.flatMap((l: Lesson) => l.words)
+            .filter((w: Word) => w.meaning !== currentWord.meaning)
+            .map((w: Word) => w.meaning);
 
         const shuffledOthers = [...otherMeanings].sort(() => Math.random() - 0.5);
         const questionOptions = [currentWord.meaning, ...shuffledOthers.slice(0, 3)]
@@ -134,7 +127,7 @@ export default function VocabularyQuiz() {
                                 Select Lessons ({selectedLessons.length === 0 ? "All" : selectedLessons.length})
                             </label>
                             <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1.5 sm:gap-2">
-                                {N5_LESSONS_VOCABULARY.map(lesson => (
+                                {N5_LESSONS_VOCABULARY.map((lesson: Lesson) => (
                                     <button
                                         key={lesson.id}
                                         onClick={() => {

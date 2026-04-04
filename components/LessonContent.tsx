@@ -4,9 +4,10 @@ import { useState } from "react";
 import FlashCard from "@/components/FlashCard";
 import WordList from "@/components/WordList";
 import { LayoutGrid, List, ChevronLeft, ChevronRight } from "lucide-react";
+import { Lesson } from "@/types/lesson";
 
 interface LessonContentProps {
-    lesson: any;
+    lesson: Lesson;
 }
 
 export default function LessonContent({ lesson }: LessonContentProps) {

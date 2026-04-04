@@ -1,12 +1,6 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-
-interface Lesson {
-    id: number;
-    icon: string;
-    titleBn: string;
-    titleEn: string;
-}
+import { Lesson } from "@/types/lesson";
 
 interface LessonListProps {
     lessons: Lesson[];
@@ -27,7 +21,7 @@ export default function LessonList({ lessons }: LessonListProps) {
                         </div>
                         <div>
                             <h3 className="text-base font-bold text-slate-900 leading-tight mb-0.5 group-hover:text-blue-600 transition-colors">
-                                {lesson.titleBn}
+                                {lesson.titleBn} {lesson.words.length}
                             </h3>
                             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
                                 {lesson.titleEn}
